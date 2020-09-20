@@ -53,6 +53,7 @@ ALTER TABLE `places`
 -- Indexes for table `times`
 --
 ALTER TABLE `times`
+  ADD UNIQUE KEY `place1_2` (`place1`,`place2`) USING BTREE,
   ADD KEY `place1` (`place1`) USING BTREE,
   ADD KEY `place2` (`place2`);
 
