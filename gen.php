@@ -55,7 +55,7 @@ foreach($times as $k => $v)
 		$p2 = $addresses[$v[1]];
 		$json = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?origins=$p1&destinations=$p2&key=$key");
 		$times[$k][2] = json_decode($json, true)["rows"][0]["elements"][0]["duration"]["value"];
-		if($query = $conn->prepare("INSERT INTO `times` (`place1`, `place2`, `time`) VALUES (?, ?, ?)")){
+		if($query = $conn->prepare("INSERT INTO `times` (`place1`, `place2`, `time`) VALUES (?, ?, ?) AS new ON DUPLICATE KEY UPDATE `time` = new.time, `timestamp` = NOW()")){
 			$query->bind_param("iii", $v[0], $v[1], $times[$k][2]);
 			$query->execute();
 			if($query->error)
@@ -73,7 +73,7 @@ function calc($perm){
 	$pair = [$home, end($perm)];
 	sort($pair);
 	$r += $times[$pair[0]. " " .$pair[1]][2];
-	for($i = 0; $i<count($perm); $i++){
+	for($i = 0; $i<count($perm)-1; $i++){
 		$pair = [$perm[$i], $perm[$i+1]];
 		sort($pair);
 		$r += $times[$pair[0]." ".$pair[1]][2];
