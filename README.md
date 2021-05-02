@@ -7,4 +7,4 @@ Turns out the Traveling Salesperson problem isn't that hard
 - Copy all the php files to a web directory, rename `config.sample.php` to `config.php` and set the variables.
 
 ## Disclaimer
-This was created as a personal project only accessible locally. I don't do this professionally so it probably is not secure or safe. Please use extreme caution if you expose this to the Internet.
+This was created as a personal project only accessible locally. This is not intended to be exposed to the internet.
